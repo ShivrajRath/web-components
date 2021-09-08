@@ -51,12 +51,14 @@ class CheckList extends HTMLElement {
   }
 
   addCustomItemToList = () => {
-    const item = this.shadowRoot.querySelector("#custom-item").value;
+    const itemEl = this.shadowRoot.querySelector("#custom-item");
+    const item = itemEl.value;
     const listItem = document.createElement("div");
     listItem.classList.add("list-item");
     listItem.innerHTML = `<input type="checkbox" id="${item}" name="${item}" value="${item}"/><label for="${item}">${item}</label>`;
     this.shadowRoot.querySelector(".list").appendChild(listItem);
     this.checkboxClickListener(listItem);
+    itemEl.value = "";
   };
 
   addCustomListListener = (addBtn) => {
