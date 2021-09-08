@@ -51,7 +51,6 @@ class Dictionary extends HTMLElement {
   }
 
   disconnectedCallback() {
-    alert("disconnceted");
     const wordElement = this.shadowRoot.querySelector("span");
     wordElement.removeEventListener("mouseover");
   }
