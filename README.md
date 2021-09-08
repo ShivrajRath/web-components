@@ -11,4 +11,5 @@ Displays a meaning of word when the word is clicked
 ```
 
 ## How to Use:
+
 Feel free to copy the JS code an include/modify in anyway you want.
