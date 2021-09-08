@@ -12,7 +12,7 @@ Displays a meaning of word when the word is clicked
 
 ## CheckList
 
-Displays a checklist of items. Useful for users to tick off the list.
+Displays a checklist of items. Useful for users to tick off the list. Also, it allows to add custom item to the list
 
 ```html
 <check-list
