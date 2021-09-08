@@ -2,7 +2,7 @@
 
 Collection of Web Components
 
-#Dictionary
+# Dictionary
 
 Displays a meaning of word when the word is clicked
 
@@ -10,5 +10,5 @@ Displays a meaning of word when the word is clicked
 <word-dictionary word="Nonplussed"> </word-dictionary>
 ```
 
-#How to Use:
+# How to Use:
 Feel free to copy the JS code an include/modify in anyway you want.
