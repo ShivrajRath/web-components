@@ -10,22 +10,25 @@ class CheckList extends HTMLElement {
 
   get templateHTML() {
     return `<style> 
-    * {
-        margin:0; 
-        padding:0;
-    }
-    .title {
-        padding-bottom: 1rem;
-    }
-    .list-item > * {
-        cursor: pointer;
-    }
-    .list-item > label {
-        margin-left: 0.5rem;
-    }
-    .list-item.complete {
-        text-decoration: line-through;
-    }
+        * {
+            margin:0; 
+            padding:0;
+        }
+        .title {
+            padding-bottom: 1rem;
+        }
+        .list-item > * {
+            cursor: pointer;
+        }
+        .list-item > label {
+            margin-left: 0.5rem;
+        }
+        .list-item.complete {
+            text-decoration: line-through;
+        }
+        .custom-list-item{
+            margin-top: 1rem;
+        }
     </style>
     <h2 class="title">${this.title}</h2>
     <div class="list">${this.list
@@ -33,13 +36,32 @@ class CheckList extends HTMLElement {
         (item) =>
           `<div class="list-item"><input type="checkbox" id="${item}" name="${item}" value="${item}"/><label for="${item}">${item}</label></div>`
       )
-      .join("")}</div>`;
+      .join("")}</div>
+    <div class="custom-list-item">
+        <input type="text" value="" id="custom-item"/>
+        <input type="button" id="btn-custom-add" value="Add your own item"/>
+    </div>`;
   }
 
   connectedCallback() {
     const listItems = [...this.shadowRoot.querySelectorAll(".list-item input")];
-    this.addClickListener(listItems);
+    const addBtn = this.shadowRoot.querySelector("#btn-custom-add");
+    listItems.forEach((item) => this.checkboxClickListener(item));
+    this.addCustomListListener(addBtn);
   }
+
+  addCustomItemToList = () => {
+    const item = this.shadowRoot.querySelector("#custom-item").value;
+    const listItem = document.createElement("div");
+    listItem.classList.add("list-item");
+    listItem.innerHTML = `<input type="checkbox" id="${item}" name="${item}" value="${item}"/><label for="${item}">${item}</label>`;
+    this.shadowRoot.querySelector(".list").appendChild(listItem);
+    this.checkboxClickListener(listItem);
+  };
+
+  addCustomListListener = (addBtn) => {
+    addBtn.addEventListener("click", this.addCustomItemToList, false);
+  };
 
   toggleCheckbox = (e) => {
     const parent = e.target.parentNode;
@@ -50,11 +72,8 @@ class CheckList extends HTMLElement {
     }
   };
 
-  addClickListener = (listItems) => {
-    listItems.forEach((item) =>
-      item.addEventListener("click", this.toggleCheckbox, false)
-    );
-  };
+  checkboxClickListener = (item) =>
+    item.addEventListener("click", this.toggleCheckbox, false);
 
   get title() {
     return this.getAttribute("title");
